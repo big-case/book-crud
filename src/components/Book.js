@@ -145,7 +145,7 @@ const Book = props => {
       ) : (
         <div>
           <br />
-          <p>Please click on a Book...</p>
+          <p>Please click on a Book</p>
         </div>
       )}
     </div>
