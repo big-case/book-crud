@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
 import BookDataService from "../services/BookDataService";
+import { confirmAlert } from "react-confirm-alert";
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 const Book = props => {
   const { id }= useParams();
@@ -76,6 +78,22 @@ const Book = props => {
       });
   };
 
+  const confirmDelete = () => {
+    confirmAlert({
+      title: 'Delete Confirmation',
+      message: 'Are you sure?',
+      buttons:[
+      {
+        label: 'Yes',
+        onClick: () => deleteBook()
+      },
+      {
+        label: 'No'
+      }
+      ]
+    });
+  };
+
   return (
     <div>
       {currentBook ? (
@@ -129,7 +147,7 @@ const Book = props => {
             </button>
           )}
 
-          <button className="m-3 btn btn-sm btn-danger" onClick={deleteBook}>
+          <button className="m-3 btn btn-sm btn-danger" onClick={confirmDelete}>
             Delete
           </button>
 
