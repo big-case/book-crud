@@ -1,20 +1,26 @@
 {
   "books": [
     {
+      "id": 2,
       "title": "Lord of the Rings",
       "description": "Better Magic",
-      "id": 2,
       "published": true
     },
     {
       "title": "Harry Potter",
-      "description": "Magic",
+      "description": "Magick",
       "id": 3
     },
     {
       "id": 4,
       "title": "Lionheart",
       "description": "Y2J",
+      "published": true
+    },
+    {
+      "id": 5,
+      "title": "MOX",
+      "description": "Jeoooooon Mooooxley",
       "published": true
     }
   ],

@@ -136,7 +136,7 @@ const Book = props => {
               className="m-3 btn btn-sm btn-danger"
               onClick={() => updatePublished(false)}
             >
-              UnPublish
+              Unpublish
             </button>
           ) : (
             <button

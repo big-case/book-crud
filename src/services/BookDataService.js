@@ -21,14 +21,14 @@ const remove = id => {
 };
 
 const removeAll = () => {
-  return http.delete(`/books/`);
+  return http.delete("/books");
 };
 
 const findByTitle = title => {
   return http.get(`/books?title=${title}`);
 };
 
-const BookService = {
+const BookDataService = {
   getAll,
   get,
   create,
@@ -38,4 +38,4 @@ const BookService = {
   findByTitle
 };
 
-export default BookService;
+export default BookDataService;
