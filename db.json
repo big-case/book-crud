@@ -1,19 +1,26 @@
 {
   "books": [
     {
-      "id": 1,
-      "title": "json-server",
-      "description": "typicode"
-    },
-    {
-      "title": "Json",
-      "description": "Server",
-      "id": 2
+      "title": "Lord of the Rings",
+      "description": "Better Magic",
+      "id": 2,
+      "published": true
     },
     {
       "title": "Harry Potter",
       "description": "Magic",
       "id": 3
+    },
+    {
+      "id": 4,
+      "title": "Lionheart",
+      "description": "Y2J",
+      "published": true
+    },
+    {
+      "title": "MOX",
+      "description": "Deathmatch",
+      "id": 5
     }
   ],
   "comments": [

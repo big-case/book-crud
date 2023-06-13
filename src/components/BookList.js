@@ -133,7 +133,7 @@ const BooksList = () => {
 
             <Link
               to={"/books/" + currentBook.id}
-              className="badge badge-warning"
+              className="m-3 btn btn-sm btn-danger"
             >
               Edit
             </Link>

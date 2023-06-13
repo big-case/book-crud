@@ -115,27 +115,27 @@ const Book = props => {
 
           {currentBook.published ? (
             <button
-              className="badge badge-primary mr-2"
+              className="m-3 btn btn-sm btn-danger"
               onClick={() => updatePublished(false)}
             >
               UnPublish
             </button>
           ) : (
             <button
-              className="badge badge-primary mr-2"
+              className="m-3 btn btn-sm btn-danger"
               onClick={() => updatePublished(true)}
             >
               Publish
             </button>
           )}
 
-          <button className="badge badge-danger mr-2" onClick={deleteBook}>
+          <button className="m-3 btn btn-sm btn-danger" onClick={deleteBook}>
             Delete
           </button>
 
           <button
             type="submit"
-            className="badge badge-success"
+            className="m-3 btn btn-sm btn-danger"
             onClick={updateBook}
           >
             Update
