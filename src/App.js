@@ -1,11 +1,13 @@
 import React from "react";
 import { Routes, Route, Link } from "react-router-dom";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 import AddBook from "./components/AddBook";
 import Book from "./components/Book";
 import BooksList from "./components/BookList";
+import DeleteBook from "./components/DeleteBook";
 
 function App() {
   return (
@@ -34,6 +36,7 @@ function App() {
           <Route path="/books" element={<BooksList/>} />
           <Route path="/add" element={<AddBook/>} />
           <Route path="/books/:id" element={<Book/>} />
+          <Route path="/books/delete/:id" element={<DeleteBook/>} />
         </Routes>
       </div>
     </div>

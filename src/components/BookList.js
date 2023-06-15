@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
 import BookDataService from "../services/BookDataService";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { Table } from "react-bootstrap";
 
-const BooksList = () => {
+const BooksList = props => {
   const [books, setBooks] = useState([]);
-  const [currentBook, setCurrentBook] = useState(null);
-  const [currentIndex, setCurrentIndex] = useState(-1);
+  // const [currentBook, setCurrentBook] = useState(null);
+  // const [currentIndex, setCurrentIndex] = useState(-1);
   const [searchTitle, setSearchTitle] = useState("");
+
+  // const { id } = useParams();
+  let navigate = useNavigate();
 
   useEffect(() => {
     retrieveBooks();
@@ -28,27 +32,25 @@ const BooksList = () => {
       });
   };
 
+  // [NOT USED]
   const refreshList = () => {
     retrieveBooks();
-    setCurrentBook(null);
-    setCurrentIndex(-1);
+    // setCurrentBook(null);
+    // setCurrentIndex(-1);
   };
 
-  const setActiveBook = (book, index) => {
-    setCurrentBook(book);
-    setCurrentIndex(index);
-  };
 
-  const removeAllBooks = () => {
-    BookDataService.removeAll()
-      .then(response => {
-        console.log(response.data);
-        refreshList();
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  };
+  // [NOT USED]
+  // const removeAllBooks = () => {
+  //   BookDataService.removeAll()
+  //     .then(response => {
+  //       console.log(response.data);
+  //       refreshList();
+  //     })
+  //     .catch(e => {
+  //       console.log(e);
+  //     });
+  // };
 
   const findByTitle = () => {
     BookDataService.findByTitle(searchTitle)
@@ -60,11 +62,10 @@ const BooksList = () => {
         console.log(e);
       });
   };
-
   return (
     <div className="list row">
       <div className="col-md-8">
-        <div className="input-group mb-3">
+        <div className = "input-group mb-3">
           <input
             type="text"
             className="form-control"
@@ -74,7 +75,7 @@ const BooksList = () => {
           />
           <div className="input-group-append">
             <button
-              className="btn btn-outline-secondary"
+              className="btn btn-outline-link"
               type="button"
               onClick={findByTitle}
             >
@@ -86,7 +87,42 @@ const BooksList = () => {
       <div className="col-md-6">
         <h4>Books List</h4>
 
-        <ul className="list-group">
+        <Table striped bordered>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Description</th>
+            {/* <th>Status</th> */}
+            <th colSpan={2}>Actions</th>
+            {/* <th>Delete</th> */}
+          </tr>
+        </thead>
+        {books && books.map((book, index) => (
+          <tbody>
+            <tr key={index}>
+              <td>{book.id}</td>
+              <td>{book.title}</td>
+              <td>{book.description}</td>
+              {/* <td>{book.published}</td> */}
+              <td><Link
+                  to={"/books/" + book.id}
+                  className="btn btn-sm btn-primary"
+                  >
+                  Update
+              </Link></td>
+              <td><Link
+                  to={"/books/delete/" + book.id}
+                  className="btn btn-sm btn-danger"
+                  >
+                  Delete
+              </Link></td>
+            </tr>
+          </tbody>
+          ))}
+        </Table>
+
+        {/* <ul className="list-group">
           {books &&
             books.map((book, index) => (
               <li
@@ -99,16 +135,16 @@ const BooksList = () => {
                 {book.title}
               </li>
             ))}
-        </ul>
+        </ul> */}
 
-        <button
+        {/* <button
           className="m-3 btn btn-sm btn-danger"
           onClick={removeAllBooks}
         >
           Remove All
-        </button>
+        </button> */}
       </div>
-      <div className="col-md-6">
+      {/* <div className="col-md-6">
         {currentBook ? (
           <div>
             <h4>Book</h4>
@@ -133,7 +169,7 @@ const BooksList = () => {
 
             <Link
               to={"/books/" + currentBook.id}
-              className="m-3 btn btn-sm btn-danger"
+              className="m-3 btn btn-sm btn-primary"
             >
               Edit
             </Link>
@@ -144,9 +180,11 @@ const BooksList = () => {
             <p>Please click on a Book.</p>
           </div>
         )}
-      </div>
+      </div> */}
     </div>
   );
 };
+
+
 
 export default BooksList;

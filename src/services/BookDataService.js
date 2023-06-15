@@ -20,9 +20,9 @@ const remove = id => {
   return http.delete(`/books/${id}`);
 };
 
-const removeAll = () => {
-  return http.delete("/books");
-};
+// const removeAll = () => {
+//   return http.delete("/books");
+// };
 
 const findByTitle = title => {
   return http.get(`/books?title=${title}`);
@@ -34,7 +34,6 @@ const BookDataService = {
   create,
   update,
   remove,
-  removeAll,
   findByTitle
 };
 
