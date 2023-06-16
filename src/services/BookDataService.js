@@ -1,5 +1,6 @@
 import http from "../http-common";
 
+// axios operations to be called
 const getAll = () => {
   return http.get("/books");
 };

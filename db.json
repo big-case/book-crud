@@ -3,7 +3,7 @@
     {
       "id": 1,
       "title": "Harry Potter",
-      "description": "Magic",
+      "description": "Terf",
       "published": false
     },
     {
@@ -14,13 +14,13 @@
     },
     {
       "title": "Lord of the Rings",
-      "description": "Better Magic",
+      "description": "JRR Tolkien",
       "id": 3,
       "published": true
     },
     {
       "title": "Lionheart",
-      "description": "RAW is JERICHO",
+      "description": "Y2J",
       "id": 4,
       "published": true
     },
@@ -28,6 +28,36 @@
       "title": "Kings of the Black Throne",
       "description": "House of Black",
       "id": 5
+    },
+    {
+      "title": "le Professeur",
+      "description": "Arsene Wenger",
+      "id": 6
+    },
+    {
+      "title": "Paginate",
+      "description": "Page",
+      "id": 7
+    },
+    {
+      "title": "Shin Gojira",
+      "description": "TOHO",
+      "id": 8
+    },
+    {
+      "title": "The Wrestler",
+      "description": "Katsuyori Shibata",
+      "id": 9
+    },
+    {
+      "title": "Test",
+      "description": "Data",
+      "id": 10
+    },
+    {
+      "title": "Dark Knight Returns",
+      "description": "Frank Miller",
+      "id": 11
     }
   ],
   "comments": [

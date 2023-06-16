@@ -12,6 +12,7 @@ import DeleteBook from "./components/DeleteBook";
 function App() {
   return (
     <div>
+      {/* NavBar for App */}
       <nav className="navbar navbar-expand navbar-dark bg-dark">
         <a href="/books" className="navbar-brand">
           Library
@@ -30,6 +31,7 @@ function App() {
         </div>
       </nav>
 
+      {/* declaring Routes */}
       <div className="container mt-3">
         <Routes>
           <Route path="/" element={<BooksList/>} />

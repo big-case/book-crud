@@ -2,25 +2,48 @@ import React, { useState, useEffect } from "react";
 import BookDataService from "../services/BookDataService";
 import { Link } from "react-router-dom";
 import { Spinner, Table } from "react-bootstrap";
+// import { ReactPaginate } from "react-paginate";
+import ReactPaginate from "react-paginate";
 
 
 const BooksList = props => {
   const [books, setBooks] = useState([]);
   const [searchTitle, setSearchTitle] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
+  
+  const [isLoading, setIsLoading] = useState(true); // Loading State
+  
+  // for Pagination
+  const [page, setPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(null);
+  const [pageCount, setPageCount] = useState(0);
+  const [offset, setOffset] = useState(0);
 
   useEffect(() => {
+    // const endOffset = offset + 5;
+    // setCurrentPage(books.slice(offset, endOffset));
+    setPageCount(Math.ceil(books.length / 5));
     retrieveBooks();
-  }, []);
+  }, [books, offset]);
+
+  // useEffect(() => {
+  //   retrieveBooks();
+  // }, []);
 
   const onChangeSearchTitle = e => {
     const searchTitle = e.target.value;
     setSearchTitle(searchTitle);
   };
 
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * 5) % books.length;
+    setOffset(newOffset);
+  }
+
   const retrieveBooks = () => {
     BookDataService.getAll()
       .then(response => {
+        const endOffset = offset + 5; // To set no. data entry to be
+        setCurrentPage(response.data.slice(offset, endOffset)); //To set current page in pagination
         setIsLoading(false);
         setBooks(response.data);
         console.log(response.data);
@@ -42,6 +65,7 @@ const BooksList = props => {
       });
   };
 
+  // For Loading State
   if (isLoading) {
     return (
       <Spinner animation="border" role="status">
@@ -78,7 +102,7 @@ const BooksList = props => {
         <Table striped bordered>
         <thead>
           <tr>
-            <th>#</th>
+            <th>#ID</th>
             <th>Title</th>
             <th>Description</th>
             {/* <th>Status</th> */}
@@ -86,21 +110,21 @@ const BooksList = props => {
             {/* <th>Delete</th> */}
           </tr>
         </thead>
-        {books && books.map((book, index) => (
+        {books && currentPage.map((currentPage, index) => (
           <tbody>
             <tr key={index}>
-              <td>{book.id}</td>
-              <td>{book.title}</td>
-              <td>{book.description}</td>
+              <td>{currentPage.id}</td>
+              <td>{currentPage.title}</td>
+              <td>{currentPage.description}</td>
               {/* <td>{book.published}</td> */}
               <td><Link
-                  to={"/books/" + book.id}
+                  to={"/books/" + currentPage.id}
                   className="btn btn-sm btn-primary"
                   >
                   Update
               </Link></td>
               <td><Link
-                  to={"/books/delete/" + book.id}
+                  to={"/books/delete/" + currentPage.id}
                   className="btn btn-sm btn-danger"
                   >
                   Delete
@@ -109,7 +133,29 @@ const BooksList = props => {
           </tbody>
           ))}
         </Table>
+        <div className="pagination">
+          <ReactPaginate
+            breakLabel = "..."
+            nextLabel = "Next >"
+            onPageChange = {handlePageClick}
+            pageRangeDisplayed={5}
+            pageCount={pageCount}
+            previousLabel = "< Prev"
+            renderOnZeroPageCount={null}
+            breakClassName="page-item"
+            breakLinkClassName="pagination"
+            containerClassName="pagination"
+            pageClassName="page-item"
+            pageLinkClassName="page-link"
+            previousClassName="page-item"
+            previousLinkClassName="page-link"
+            nextClassName="page-item"
+            nextLinkClassName="page-link"
+            activeClassName="active"
+          />
       </div>
+      </div>
+      
     </div>
   );
 };

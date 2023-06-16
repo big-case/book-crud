@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import BookDataService from "../services/BookDataService";
 
 const AddBook = () => {
+  
+  // initial values for form
   const initialBookState = {
     id: null,
     title: "",
@@ -22,6 +24,7 @@ const AddBook = () => {
       description: book.description
     };
 
+    // get axios call
     BookDataService.create(data)
       .then(response => {
         setBook({
