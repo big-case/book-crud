@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import BookDataService from "../services/BookDataService";
+import { Spinner } from "react-bootstrap";
 
 const Book = props => {
   const { id }= useParams();
@@ -22,10 +23,12 @@ const Book = props => {
   };
   const [currentBook, setCurrentBook] = useState(initialBookState);
   const [message, setMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   const getBook = id => {
     BookDataService.get(id)
       .then(response => {
+        setIsLoading(false);
         setCurrentBook(response.data);
         console.log(response.data);
       })
@@ -54,6 +57,7 @@ const Book = props => {
 
     BookDataService.update(currentBook.id, data)
       .then(response => {
+        setIsLoading(false);
         setCurrentBook({ ...currentBook, published: status });
         console.log(response.data);
       })
@@ -65,6 +69,7 @@ const Book = props => {
   const updateBook = () => {
     BookDataService.update(currentBook.id, currentBook)
       .then(response => {
+        setIsLoading(false);
         console.log(response.data);
         setMessage("The book was updated successfully!");
       })
@@ -72,6 +77,14 @@ const Book = props => {
         console.log(e);
       });
   };
+
+  if (isLoading) {
+    return(
+      <Spinner animation="border" role="status">
+        <span className="visually-hidden">Loading...</span>
+      </Spinner>
+    );
+  }
 
   return (
     <div>
