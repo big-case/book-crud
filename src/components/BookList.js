@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from "react";
 import BookDataService from "../services/BookDataService";
-import { Link, useNavigate } from "react-router-dom";
-import { Table } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { Spinner, Table } from "react-bootstrap";
+
 
 const BooksList = props => {
   const [books, setBooks] = useState([]);
-  // const [currentBook, setCurrentBook] = useState(null);
-  // const [currentIndex, setCurrentIndex] = useState(-1);
   const [searchTitle, setSearchTitle] = useState("");
-
-  // const { id } = useParams();
-  let navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     retrieveBooks();
@@ -24,6 +21,7 @@ const BooksList = props => {
   const retrieveBooks = () => {
     BookDataService.getAll()
       .then(response => {
+        setIsLoading(false);
         setBooks(response.data);
         console.log(response.data);
       })
@@ -31,30 +29,11 @@ const BooksList = props => {
         console.log(e);
       });
   };
-
-  // [NOT USED]
-  const refreshList = () => {
-    retrieveBooks();
-    // setCurrentBook(null);
-    // setCurrentIndex(-1);
-  };
-
-
-  // [NOT USED]
-  // const removeAllBooks = () => {
-  //   BookDataService.removeAll()
-  //     .then(response => {
-  //       console.log(response.data);
-  //       refreshList();
-  //     })
-  //     .catch(e => {
-  //       console.log(e);
-  //     });
-  // };
 
   const findByTitle = () => {
     BookDataService.findByTitle(searchTitle)
       .then(response => {
+        setIsLoading(false);
         setBooks(response.data);
         console.log(response.data);
       })
@@ -62,6 +41,15 @@ const BooksList = props => {
         console.log(e);
       });
   };
+
+  if (isLoading) {
+    return (
+      <Spinner animation="border" role="status">
+        <span className="visually-hidden">Loading...</span>
+      </Spinner>
+    );
+  }
+
   return (
     <div className="list row">
       <div className="col-md-8">
@@ -75,7 +63,7 @@ const BooksList = props => {
           />
           <div className="input-group-append">
             <button
-              className="btn btn-outline-link"
+              className="btn btn-outline-success"
               type="button"
               onClick={findByTitle}
             >
@@ -121,66 +109,7 @@ const BooksList = props => {
           </tbody>
           ))}
         </Table>
-
-        {/* <ul className="list-group">
-          {books &&
-            books.map((book, index) => (
-              <li
-                className={
-                  "list-group-item " + (index === currentIndex ? "active" : "")
-                }
-                onClick={() => setActiveBook(book, index)}
-                key={index}
-              >
-                {book.title}
-              </li>
-            ))}
-        </ul> */}
-
-        {/* <button
-          className="m-3 btn btn-sm btn-danger"
-          onClick={removeAllBooks}
-        >
-          Remove All
-        </button> */}
       </div>
-      {/* <div className="col-md-6">
-        {currentBook ? (
-          <div>
-            <h4>Book</h4>
-            <div>
-              <label>
-                <strong>Title:</strong>
-              </label>{" "}
-              {currentBook.title}
-            </div>
-            <div>
-              <label>
-                <strong>Description:</strong>
-              </label>{" "}
-              {currentBook.description}
-            </div>
-            <div>
-              <label>
-                <strong>Status:</strong>
-              </label>{" "}
-              {currentBook.published ? "Published" : "Pending"}
-            </div>
-
-            <Link
-              to={"/books/" + currentBook.id}
-              className="m-3 btn btn-sm btn-primary"
-            >
-              Edit
-            </Link>
-          </div>
-        ) : (
-          <div>
-            <br />
-            <p>Please click on a Book.</p>
-          </div>
-        )}
-      </div> */}
     </div>
   );
 };

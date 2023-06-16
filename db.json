@@ -1,24 +1,28 @@
 {
   "books": [
     {
+      "id": 1,
       "title": "Harry Potter",
       "description": "Magic",
-      "id": 1
+      "published": false
     },
     {
-      "title": "TRON",
-      "description": "Legacy",
-      "id": 2
+      "title": "Cool Hands",
+      "description": "Angelo Parker",
+      "id": 2,
+      "published": true
     },
     {
       "title": "Lord of the Rings",
       "description": "Better Magic",
-      "id": 3
+      "id": 3,
+      "published": true
     },
     {
       "title": "Lionheart",
       "description": "RAW is JERICHO",
-      "id": 4
+      "id": 4,
+      "published": true
     },
     {
       "title": "Kings of the Black Throne",

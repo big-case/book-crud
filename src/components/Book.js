@@ -1,10 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import BookDataService from "../services/BookDataService";
 
 const Book = props => {
   const { id }= useParams();
-  let navigate = useNavigate();
+  
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const [recordsPerPage] = useState(5);
+
+  // const indexOfLastRecord = currentPage * recordsPerPage;
+  // const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+
+  // const currentRecords = data.slice(indexOfFirstRecord, indexOfLastRecord);
+  // const nPages = Math.ceil(data.length / recordsPerPage);
 
   const initialBookState = {
     id: null,
@@ -111,7 +119,7 @@ const Book = props => {
             </button>
           ) : (
             <button
-              className="m-3 btn btn-sm btn-danger"
+              className="m-3 btn btn-sm btn-success"
               onClick={() => updatePublished(true)}
             >
               Publish
@@ -120,7 +128,7 @@ const Book = props => {
 
           <button
             type="submit"
-            className="m-3 btn btn-sm btn-danger"
+            className="m-3 btn btn-sm btn-primary"
             onClick={updateBook}
           >
             Update
