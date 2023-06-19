@@ -23,12 +23,12 @@ const BooksList = props => {
       setCurrentPage(books.slice(offset, endOffset))
     // });
     setPageCount(Math.ceil(books.length / 5));
-    retrieveBooks();
+    // retrieveBooks();
   }, [books, offset]);
 
-  // useEffect(() => {
-  //   retrieveBooks();
-  // }, []);
+  useEffect(() => {
+    retrieveBooks();
+  }, []);
 
   const onChangeSearchTitle = e => {
     const searchTitle = e.target.value;
