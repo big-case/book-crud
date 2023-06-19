@@ -7,12 +7,6 @@
       "published": false
     },
     {
-      "title": "Cool Hands",
-      "description": "Angelo Parker",
-      "id": 2,
-      "published": true
-    },
-    {
       "title": "Lord of the Rings",
       "description": "JRR Tolkien",
       "id": 3,
@@ -32,11 +26,12 @@
     {
       "title": "le Professeur",
       "description": "Arsene Wenger",
-      "id": 6
+      "id": 6,
+      "published": true
     },
     {
-      "title": "Paginate",
-      "description": "Page",
+      "title": "Hangman",
+      "description": "Adam Page",
       "id": 7
     },
     {
@@ -58,6 +53,11 @@
       "title": "Dark Knight Returns",
       "description": "Frank Miller",
       "id": 11
+    },
+    {
+      "title": "Switchblade",
+      "description": "Jay White",
+      "id": 12
     }
   ],
   "comments": [

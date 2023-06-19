@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import BookDataService from "../services/BookDataService";
 import { Link } from "react-router-dom";
 import { Spinner, Table } from "react-bootstrap";
-// import { ReactPaginate } from "react-paginate";
 import ReactPaginate from "react-paginate";
 
 
@@ -13,14 +12,16 @@ const BooksList = props => {
   const [isLoading, setIsLoading] = useState(true); // Loading State
   
   // for Pagination
-  const [page, setPage] = useState(1);
+  // const [page, setPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(null);
   const [pageCount, setPageCount] = useState(0);
   const [offset, setOffset] = useState(0);
 
   useEffect(() => {
-    // const endOffset = offset + 5;
-    // setCurrentPage(books.slice(offset, endOffset));
+    const endOffset = offset + 5;
+    // setCurrentPage(() =>{
+      setCurrentPage(books.slice(offset, endOffset))
+    // });
     setPageCount(Math.ceil(books.length / 5));
     retrieveBooks();
   }, [books, offset]);
@@ -42,8 +43,8 @@ const BooksList = props => {
   const retrieveBooks = () => {
     BookDataService.getAll()
       .then(response => {
-        const endOffset = offset + 5; // To set no. data entry to be
-        setCurrentPage(response.data.slice(offset, endOffset)); //To set current page in pagination
+        // const endOffset = offset + 5; // To set no. data entry to be
+        // setCurrentPage(response.data.slice(offset, endOffset)); //To set current page in pagination
         setIsLoading(false);
         setBooks(response.data);
         console.log(response.data);
@@ -110,7 +111,7 @@ const BooksList = props => {
             {/* <th>Delete</th> */}
           </tr>
         </thead>
-        {books && currentPage.map((currentPage, index) => (
+        {currentPage && currentPage.map((currentPage, index) => (
           <tbody>
             <tr key={index}>
               <td>{currentPage.id}</td>
@@ -133,7 +134,9 @@ const BooksList = props => {
           </tbody>
           ))}
         </Table>
-        <div className="pagination">
+        
+      </div>
+      <div className="pagination">
           <ReactPaginate
             breakLabel = "..."
             nextLabel = "Next >"
@@ -154,8 +157,6 @@ const BooksList = props => {
             activeClassName="active"
           />
       </div>
-      </div>
-      
     </div>
   );
 };
