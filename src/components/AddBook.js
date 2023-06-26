@@ -71,7 +71,7 @@ const AddBook = () => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="description">Description</label>
+            <label htmlFor="description">Author</label>
             <input
               type="text"
               className="form-control"

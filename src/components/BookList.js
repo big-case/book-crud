@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import BookDataService from "../services/BookDataService";
 import { Link } from "react-router-dom";
-import { Spinner, Table } from "react-bootstrap";
+import { Table } from "react-bootstrap";
 import ReactPaginate from "react-paginate";
+import { CircularProgress } from "@mui/material";
 
 
 const BooksList = props => {
@@ -12,18 +13,15 @@ const BooksList = props => {
   const [isLoading, setIsLoading] = useState(true); // Loading State
   
   // for Pagination
-  // const [page, setPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(null);
   const [pageCount, setPageCount] = useState(0);
   const [offset, setOffset] = useState(0);
+  const entryPerPage = 4;
 
   useEffect(() => {
-    const endOffset = offset + 5;
-    // setCurrentPage(() =>{
-      setCurrentPage(books.slice(offset, endOffset))
-    // });
-    setPageCount(Math.ceil(books.length / 5));
-    // retrieveBooks();
+    const endOffset = offset + entryPerPage;
+    setCurrentPage(books.slice(offset, endOffset))
+    setPageCount(Math.ceil(books.length / entryPerPage));
   }, [books, offset]);
 
   useEffect(() => {
@@ -36,15 +34,13 @@ const BooksList = props => {
   };
 
   const handlePageClick = (event) => {
-    const newOffset = (event.selected * 5) % books.length;
+    const newOffset = (event.selected * entryPerPage) % books.length;
     setOffset(newOffset);
   }
 
   const retrieveBooks = () => {
     BookDataService.getAll()
       .then(response => {
-        // const endOffset = offset + 5; // To set no. data entry to be
-        // setCurrentPage(response.data.slice(offset, endOffset)); //To set current page in pagination
         setIsLoading(false);
         setBooks(response.data);
         console.log(response.data);
@@ -54,6 +50,7 @@ const BooksList = props => {
       });
   };
 
+  // Searching module
   const findByTitle = () => {
     BookDataService.findByTitle(searchTitle)
       .then(response => {
@@ -69,9 +66,9 @@ const BooksList = props => {
   // For Loading State
   if (isLoading) {
     return (
-      <Spinner animation="border" role="status">
+      <CircularProgress animation="border" role="status">
         <span className="visually-hidden">Loading...</span>
-      </Spinner>
+      </CircularProgress>
     );
   }
 
@@ -105,19 +102,16 @@ const BooksList = props => {
           <tr>
             <th>#ID</th>
             <th>Title</th>
-            <th>Description</th>
-            {/* <th>Status</th> */}
+            <th>Author</th>
             <th colSpan={2}>Actions</th>
-            {/* <th>Delete</th> */}
           </tr>
         </thead>
         {currentPage && currentPage.map((currentPage, index) => (
-          <tbody>
-            <tr key={index}>
+          <tbody key={index}>
+            <tr>
               <td>{currentPage.id}</td>
               <td>{currentPage.title}</td>
               <td>{currentPage.description}</td>
-              {/* <td>{book.published}</td> */}
               <td><Link
                   to={"/books/" + currentPage.id}
                   className="btn btn-sm btn-primary"

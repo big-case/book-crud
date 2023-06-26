@@ -21,10 +21,6 @@ const remove = id => {
   return http.delete(`/books/${id}`);
 };
 
-// const removeAll = () => {
-//   return http.delete("/books");
-// };
-
 const findByTitle = title => {
   return http.get(`/books?title=${title}`);
 };

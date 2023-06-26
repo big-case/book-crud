@@ -4,17 +4,8 @@ import BookDataService from "../services/BookDataService";
 import { Spinner } from "react-bootstrap";
 
 const Book = props => {
-  const { id }= useParams();
+  const { id } = useParams();
   
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const [recordsPerPage] = useState(5);
-
-  // const indexOfLastRecord = currentPage * recordsPerPage;
-  // const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
-
-  // const currentRecords = data.slice(indexOfFirstRecord, indexOfLastRecord);
-  // const nPages = Math.ceil(data.length / recordsPerPage);
-
   const initialBookState = {
     id: null,
     title: "",
