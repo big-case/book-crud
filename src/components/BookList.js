@@ -19,9 +19,15 @@ const BooksList = props => {
   const entryPerPage = 4;
 
   useEffect(() => {
+<<<<<<< HEAD
     const endOffset = offset + entryPerPage;
     setCurrentPage(books.slice(offset, endOffset))
     setPageCount(Math.ceil(books.length / entryPerPage));
+=======
+    const endOffset = offset + 5;
+      setCurrentPage(books.slice(offset, endOffset))
+    setPageCount(Math.ceil(books.length / 5));
+>>>>>>> 2a1be62e8895573bf421dfae080c27284962c0e1
   }, [books, offset]);
 
   useEffect(() => {
@@ -102,7 +108,11 @@ const BooksList = props => {
           <tr>
             <th>#ID</th>
             <th>Title</th>
+<<<<<<< HEAD
             <th>Author</th>
+=======
+            <th>Description</th>
+>>>>>>> 2a1be62e8895573bf421dfae080c27284962c0e1
             <th colSpan={2}>Actions</th>
           </tr>
         </thead>
