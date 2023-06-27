@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import BookDataService from "../services/BookDataService";
 import { Link } from "react-router-dom";
-import { Table } from "react-bootstrap";
 import ReactPaginate from "react-paginate";
-import { Box, Button, CircularProgress, Paper, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow, TextField } from "@mui/material";
+import { Box, Button, CircularProgress, Paper, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow, TextField, Table } from "@mui/material";
 
 
 const BooksList = props => {
@@ -16,7 +15,7 @@ const BooksList = props => {
   const [currentPage, setCurrentPage] = useState(null);
   const [pageCount, setPageCount] = useState(0);
   const [offset, setOffset] = useState(0);
-  const entryPerPage = 4;
+  const entryPerPage = 5;
 
   useEffect(() => {
     const endOffset = offset + entryPerPage;
@@ -66,7 +65,7 @@ const BooksList = props => {
   // For Loading State
   if (isLoading) {
     return (
-      <CircularProgress animation="border" role="status">
+      <CircularProgress variant="determinate">
         <span className="visually-hidden">Loading...</span>
       </CircularProgress>
     );
@@ -101,10 +100,10 @@ const BooksList = props => {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>#ID</TableCell>
-            <TableCell>Title</TableCell>
-            <TableCell>Author</TableCell>
-            <TableCell colSpan={2} align="center">Actions</TableCell>
+            <TableCell><strong>#ID</strong></TableCell>
+            <TableCell><strong>Title</strong></TableCell>
+            <TableCell><strong>Author</strong></TableCell>
+            <TableCell colSpan={2} align="center"><strong>Actions</strong></TableCell>
           </TableRow>
         </TableHead>
         {currentPage && currentPage.map((currentPage, index) => (

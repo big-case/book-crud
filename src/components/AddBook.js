@@ -82,8 +82,6 @@ const AddBook = () => {
               onChange={handleInputChange}
               name="title"
             />
-
-
             <TextField
               required
               id="description"

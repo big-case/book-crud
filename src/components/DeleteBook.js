@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
 import BookDataService from "../services/BookDataService";
-import { Button, ModalBody, ModalDialog, ModalFooter, ModalHeader, Spinner } from "react-bootstrap";
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button, CircularProgress } from "@mui/material";
 
 const Book = props => {
   const { id }= useParams();
@@ -51,27 +51,35 @@ const Book = props => {
 
   if (isLoading) {
     return(
-      <Spinner animation="border" role="status">
+      <CircularProgress color="inherit">
         <span className="visually-hidden">Loading...</span>
-      </Spinner>
+      </CircularProgress>
     );
   }
+
+  // const [open, setOpen] = useState(false);
+  // const handleOpen = () => setOpen(true);
+  // const handleClose = () => setOpen(false);
 
   return (
     <div>
       {currentBook ? (
-        <ModalDialog>
-            <ModalHeader>
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby = "alert-dialog-title"
+          aria-describedby = "alert-dialog-description">
+            <DialogTitle>
                 Delete Confirmation
-            </ModalHeader>
-            <ModalBody>
-                <p>Are you sure you want to delete?</p>
-            </ModalBody>
-            <ModalFooter>
-                <Button variant="secondary" onClick={handleClose}>Close</Button>
-                <Button variant="danger" onClick={deleteBook}>Delete</Button>
-            </ModalFooter>
-        </ModalDialog>
+            </DialogTitle>
+            <DialogContent>
+                <DialogContentText id = "alert-dialog-description">Are you sure you want to delete?</DialogContentText>
+            </DialogContent>
+            <DialogActions>
+                <Button variant="outlined" onClick={handleClose}>Close</Button>
+                <Button variant="outlined" onClick={deleteBook} color="error">Delete</Button>
+            </DialogActions>
+        </Dialog>
       ) : (
         <div>
           <br />

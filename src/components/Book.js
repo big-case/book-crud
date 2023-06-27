@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import BookDataService from "../services/BookDataService";
-import { Spinner } from "react-bootstrap";
-import { Box, TextField } from "@mui/material";
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
+import TextField from '@mui/material/TextField';
 
 const Book = props => {
   const { id } = useParams();
@@ -72,9 +74,9 @@ const Book = props => {
 
   if (isLoading) {
     return(
-      <Spinner animation="border" role="status">
+      <CircularProgress variant="determinate">
         <span className="visually-hidden">Loading...</span>
-      </Spinner>
+      </CircularProgress>
     );
   }
 
@@ -102,7 +104,6 @@ const Book = props => {
                 onChange={handleInputChange}
               />
               <br />
-
             </div>
 
             <div className="form-group">
@@ -114,28 +115,27 @@ const Book = props => {
           </form>
 
           {currentBook.published ? (
-            <button
-              className="m-3 btn btn-sm btn-danger"
+            <Button
+              variant="outlined"
+              color="error"
               onClick={() => updatePublished(false)}
             >
               Unpublish
-            </button>
+            </Button>
           ) : (
-            <button
-              className="m-3 btn btn-sm btn-success"
+            <Button
+              variant="outlined"
               onClick={() => updatePublished(true)}
             >
               Publish
-            </button>
+            </Button>
           )}
-
-          <button
-            type="submit"
-            className="m-3 btn btn-sm btn-primary"
+          <Button
+            variant="outlined"
             onClick={updateBook}
           >
             Update
-          </button>
+          </Button>
           <p>{message}</p>
         </div>
       ) : (
