@@ -3,7 +3,7 @@ import BookDataService from "../services/BookDataService";
 import { Link } from "react-router-dom";
 import { Table } from "react-bootstrap";
 import ReactPaginate from "react-paginate";
-import { CircularProgress } from "@mui/material";
+import { Box, Button, CircularProgress, Paper, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow, TextField } from "@mui/material";
 
 
 const BooksList = props => {
@@ -19,15 +19,9 @@ const BooksList = props => {
   const entryPerPage = 4;
 
   useEffect(() => {
-<<<<<<< HEAD
     const endOffset = offset + entryPerPage;
     setCurrentPage(books.slice(offset, endOffset))
     setPageCount(Math.ceil(books.length / entryPerPage));
-=======
-    const endOffset = offset + 5;
-      setCurrentPage(books.slice(offset, endOffset))
-    setPageCount(Math.ceil(books.length / 5));
->>>>>>> 2a1be62e8895573bf421dfae080c27284962c0e1
   }, [books, offset]);
 
   useEffect(() => {
@@ -79,68 +73,70 @@ const BooksList = props => {
   }
 
   return (
-    <div className="list row">
+    <div>
+      <Box>
       <div className="col-md-8">
         <div className = "input-group mb-3">
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Search by title"
+          <TextField
+            fullWidth
+            label="Search by title"
             value={searchTitle}
             onChange={onChangeSearchTitle}
+            size="small"
           />
-          <div className="input-group-append">
-            <button
-              className="btn btn-outline-success"
-              type="button"
+          <div>
+            <Button
+              variant="outlined"
               onClick={findByTitle}
             >
               Search
-            </button>
+            </Button>
           </div>
         </div>
       </div>
-      <div className="col-md-6">
+      </Box>
+      <Box>
         <h4>Books List</h4>
-
-        <Table striped bordered>
-        <thead>
-          <tr>
-            <th>#ID</th>
-            <th>Title</th>
-<<<<<<< HEAD
-            <th>Author</th>
-=======
-            <th>Description</th>
->>>>>>> 2a1be62e8895573bf421dfae080c27284962c0e1
-            <th colSpan={2}>Actions</th>
-          </tr>
-        </thead>
+        <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell>#ID</TableCell>
+            <TableCell>Title</TableCell>
+            <TableCell>Author</TableCell>
+            <TableCell colSpan={2} align="center">Actions</TableCell>
+          </TableRow>
+        </TableHead>
         {currentPage && currentPage.map((currentPage, index) => (
-          <tbody key={index}>
-            <tr>
-              <td>{currentPage.id}</td>
-              <td>{currentPage.title}</td>
-              <td>{currentPage.description}</td>
-              <td><Link
+          <TableBody key={index}>
+            <TableRow>
+              <TableCell>{currentPage.id}</TableCell>
+              <TableCell>{currentPage.title}</TableCell>
+              <TableCell>{currentPage.description}</TableCell>
+              <TableCell align="center">
+                <Link
                   to={"/books/" + currentPage.id}
-                  className="btn btn-sm btn-primary"
-                  >
-                  Update
-              </Link></td>
-              <td><Link
+                >
+                  <Button variant="outlined" size="small">
+                    Update
+                  </Button>
+                </Link>
+              </TableCell>
+              <TableCell align="center">
+                <Link
                   to={"/books/delete/" + currentPage.id}
-                  className="btn btn-sm btn-danger"
-                  >
+                >
+                <Button variant="outlined" color="error" size="small">
                   Delete
-              </Link></td>
-            </tr>
-          </tbody>
+                </Button>
+                </Link>
+              </TableCell>
+            </TableRow>
+          </TableBody>
           ))}
-        </Table>
-        
-      </div>
-      <div className="pagination">
+          <TableFooter>
+            <TableCell colSpan={4}>
+          <div className="pagination">
           <ReactPaginate
             breakLabel = "..."
             nextLabel = "Next >"
@@ -160,7 +156,14 @@ const BooksList = props => {
             nextLinkClassName="page-link"
             activeClassName="active"
           />
-      </div>
+          </div>
+      </TableCell>
+          </TableFooter>
+        </Table>
+        </TableContainer>
+        
+      </Box>
+      
     </div>
   );
 };

@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import BookDataService from "../services/BookDataService";
+import { Button, Stack, TextField } from "@mui/material";
+import { styled } from '@mui/material/styles'
+import Paper from "@mui/material/Paper";
 
 const AddBook = () => {
   
@@ -46,48 +49,58 @@ const AddBook = () => {
     setSubmitted(false);
   };
 
+  const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  }));
+
   return (
-    <div className="submit-form">
+    <div>
+      <h4>Add Book</h4>
+    <Stack
+      component="form"
+      direction="row"
+    >
       {submitted ? (
-        <div>
+        <Item>
           <h4>You submitted successfully!</h4>
-          <button className="btn btn-success" onClick={newBook}>
+          <Button onClick={newBook}>
             Add
-          </button>
-        </div>
+          </Button>
+        </Item>
       ) : (
         <div>
-          <div className="form-group">
-            <label htmlFor="title">Title</label>
-            <input
-              type="text"
-              className="form-control"
-              id="title"
+          <Item className="form-group">
+            <TextField
               required
+              id="title"
+              label="Title"
               value={book.title}
               onChange={handleInputChange}
               name="title"
             />
-          </div>
 
-          <div className="form-group">
-            <label htmlFor="description">Author</label>
-            <input
-              type="text"
-              className="form-control"
-              id="description"
+
+            <TextField
               required
+              id="description"
+              label="Author"
               value={book.description}
               onChange={handleInputChange}
               name="description"
             />
-          </div>
-
-          <button onClick={saveBook} className="btn btn-success">
+          </Item>
+          <Item>
+          <Button onClick={saveBook} variant="outlined">
             Submit
-          </button>
+          </Button>
+          </Item>
         </div>
       )}
+    </Stack>
     </div>
   );
 };

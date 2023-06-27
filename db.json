@@ -1,9 +1,10 @@
 {
   "books": [
     {
+      "id": 1,
       "title": "Test",
       "description": "Data",
-      "id": 1
+      "published": true
     },
     {
       "title": "Test",
@@ -65,6 +66,16 @@
       "title": "Book",
       "description": "title",
       "id": 13
+    },
+    {
+      "title": "Adding Books",
+      "description": "Example",
+      "id": 14
+    },
+    {
+      "title": "Title",
+      "description": "Author",
+      "id": 15
     }
   ],
   "comments": [

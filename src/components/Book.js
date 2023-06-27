@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import BookDataService from "../services/BookDataService";
 import { Spinner } from "react-bootstrap";
+import { Box, TextField } from "@mui/material";
 
 const Book = props => {
   const { id } = useParams();
@@ -79,31 +80,29 @@ const Book = props => {
 
   return (
     <div>
+      <Box>
       {currentBook ? (
         <div className="edit-form">
           <h4>Book</h4>
           <form>
             <div className="form-group">
-              <label htmlFor="title">Title</label>
-              <input
-                type="text"
-                className="form-control"
+              <TextField
                 id="title"
+                label="Title"
                 name="title"
-                value={currentBook.title}
+                defaultValue={currentBook.title}
                 onChange={handleInputChange}
               />
-            </div>
-            <div className="form-group">
-              <label htmlFor="description">Description</label>
-              <input
-                type="text"
-                className="form-control"
+              <br /><br />
+              <TextField
                 id="description"
+                label="Author"
                 name="description"
-                value={currentBook.description}
+                defaultValue={currentBook.description}
                 onChange={handleInputChange}
               />
+              <br />
+
             </div>
 
             <div className="form-group">
@@ -145,6 +144,7 @@ const Book = props => {
           <p>Please click on a Book</p>
         </div>
       )}
+      </Box>
     </div>
   );
 };
