@@ -88,7 +88,7 @@ const View = () => {
         ),
       },
     ],
-    [navigate]
+  [navigate]
   );
 
   const {
@@ -149,10 +149,10 @@ const View = () => {
       </AppBar>
       <form onSubmit={handleSearch}>
         <TextField
+          label='Search'
           size='small'
           name="search"
           defaultValue={searchQuery || ''}
-          placeholder="Search..."
         />
         <Button type="submit">Search</Button>
       </form>

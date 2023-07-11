@@ -34,15 +34,15 @@ function App() {
       </AppBar> */}
       </div>
       <div>
-    <Router>
-      <Routes>
-        <Route path="/" element={<View />} />
-        <Route path="/view" element={<View />} />
-        <Route path="/create" element={<Create />} />
-        <Route path="/edit/:id" element={<Edit />} />
-      </Routes>
-    </Router>
-    </div>
+      <Router>
+        <Routes>
+          <Route path="/" element={<View />} />
+          <Route path="/view" element={<View />} />
+          <Route path="/create" element={<Create />} />
+          <Route path="/edit/:id" element={<Edit />} />
+        </Routes>
+      </Router>
+      </div>
     </div>
   );
 };
