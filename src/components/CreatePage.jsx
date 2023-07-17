@@ -4,12 +4,12 @@ import {
     Link,
     useNavigate
     } from "react-router-dom";
-import {
-    AppBar,
-    Button,
-    TextField,
-    Toolbar
-    } from "@mui/material";
+import AppBar from '@mui/material/AppBar';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Toolbar from '@mui/material/Toolbar';
+import { Typography } from "@mui/material";
+import BookDataService from "../services/BookDataService";
 
 const Create = () => {
     const navigate = useNavigate();
@@ -19,7 +19,7 @@ const Create = () => {
       const newBook = Object.fromEntries(formData.entries());
   
       try {
-        await axios.post('http://localhost:3003/books', newBook);
+        await BookDataService.create(newBook);
         navigate('/view');
       } catch (error) {
         console.log('Error creating data:', error);
@@ -28,6 +28,7 @@ const Create = () => {
   
     return (
       <div>
+        <Typography>
         <AppBar position='static'>
           <Toolbar>
             <Link to="/">
@@ -59,6 +60,7 @@ const Create = () => {
             <Button type="submit">Create</Button>
           </div>
         </form>
+        </Typography>
       </div>
     );
   };

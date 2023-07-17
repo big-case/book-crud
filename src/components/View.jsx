@@ -1,31 +1,31 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useState } from 'react';
+import { useEffect } from 'react';
 import axios from 'axios';
-import { useTable,
-  usePagination
-  } from 'react-table';
-import { 
-    AppBar,
-    Button,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogTitle,
-    LinearProgress,
-    MenuItem,
-    Select,
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableRow,
-    TextField,
-    Toolbar
-  } from '@mui/material';
+import { useTable, usePagination } from 'react-table';
+import AppBar from '@mui/material/AppBar';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import LinearProgress from '@mui/material/LinearProgress';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import TextField from '@mui/material/TextField';
+import Toolbar  from '@mui/material/Toolbar';
 import { 
     Link,
     useLocation,
     useNavigate
   } from 'react-router-dom';
+import BookDataService from '../services/BookDataService';
+import { Typography } from '@mui/material';
 
 const View = () => {
   const navigate = useNavigate();
@@ -34,8 +34,8 @@ const View = () => {
   const [loading, setLoading] = useState(true);
   const searchParams = new URLSearchParams(location.search);
   const searchQuery = searchParams.get('q');
-  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [selectedRow, setSelectedRow] = useState(null);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
   useEffect(() => {
     fetchData();
@@ -43,7 +43,7 @@ const View = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(`http://localhost:3003/books${location.search}`);
+      const response = await BookDataService.get(`${location.search}`);
       setData(response.data);
       setLoading(false);
     } catch (error) {
@@ -64,7 +64,7 @@ const View = () => {
   const handleDeleteRow = async () => {
     try {
       if (selectedRow) {
-        await axios.delete(`http://localhost:3003/books/${selectedRow.original.id}`);
+        await BookDataService.remove(`${selectedRow.original.id}`);
         fetchData();
         handleCloseDeleteDialog();
       }
@@ -128,6 +128,7 @@ const View = () => {
 
   return (
     <div>
+      <Typography mt={2}>
       <AppBar position='static'>
         <Toolbar>
           <Link to="/">
@@ -180,6 +181,7 @@ const View = () => {
         </TableBody>
       </Table>
       <div>
+        
         <Button size='small' onClick={() => previousPage()} disabled={!canPreviousPage}>
           Previous
         </Button>
@@ -218,12 +220,13 @@ const View = () => {
           </Select>{' '}
           entries
         </div>
+        
       </div>
 
       <Dialog open={deleteDialogOpen} onClose={handleCloseDeleteDialog}>
         <DialogTitle>Delete Item</DialogTitle>
         <DialogContent>
-          <p>Are you sure you want to delete this item?</p>
+          <Typography>Are you sure you want to delete this item?</Typography>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseDeleteDialog}>Cancel</Button>
@@ -232,7 +235,9 @@ const View = () => {
           </Button>
         </DialogActions>
       </Dialog>
+      </Typography>
     </div>
+
   );
 };
 

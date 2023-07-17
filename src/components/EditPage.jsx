@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import {
+import { 
     Link,
     useParams
-    } from "react-router-dom";
-import {
-    AppBar,
-    Button,
-    LinearProgress,
-    TextField,
-    Toolbar
-    } from "@mui/material";
+} from "react-router-dom";
+import AppBar from '@mui/material/AppBar';
+import Button from '@mui/material/Button';
+import LinearProgress from '@mui/material/LinearProgress';
+import TextField from '@mui/material/TextField';
+import Toolbar from '@mui/material/Toolbar';
+import { Typography } from "@mui/material";
+import BookDataService from "../services/BookDataService";
 
 const Edit = () => {
     const { id } = useParams();
@@ -21,7 +21,7 @@ const Edit = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://localhost:3003/books/${id}`);
+                const response = await BookDataService.get(`${id}`);
                 const { title, description } = response.data;
                 setTitle(title);
                 setDescription(description);
@@ -36,7 +36,7 @@ const Edit = () => {
     const handleUpdate = async (e) => {
         e.preventDefault();
         try {
-            await axios.put(`http://localhost:3003/books/${id}`, { title, description });
+            await BookDataService.update(`${id}`, { title, description });
             navigate('/view');
         } catch (error) {
             console.log('Error updating item:', error);
@@ -48,6 +48,7 @@ const Edit = () => {
     }
     return (
         <div>
+            <Typography>
             <AppBar position='static'>
                 <Toolbar>
                     <Link to="/">
@@ -89,6 +90,7 @@ const Edit = () => {
                 </div>
                 <Button size="small" variant="outlined" type="submit">Update</Button>
             </form>
+            </Typography>
         </div>
     );
 };
