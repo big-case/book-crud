@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { 
-    Link,
-    useParams
-} from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
 import LinearProgress from '@mui/material/LinearProgress';
 import TextField from '@mui/material/TextField';
 import Toolbar from '@mui/material/Toolbar';
-import { Typography } from "@mui/material";
+import Typography from "@mui/material/Typography";
 import BookDataService from "../services/BookDataService";
 
 const Edit = () => {
@@ -50,27 +46,33 @@ const Edit = () => {
         <div>
             <Typography>
             <AppBar position='static'>
-                <Toolbar>
-                    <Link to="/">
-                        <Button variant='contained' color='success'>
-                            Home
-                        </Button>
-                    </Link>
-                    <Link to="/view">
-                        <Button variant='contained' color='success'>
-                            View
-                        </Button>
-                    </Link>
-                    <Link to="/create">
-                        <Button variant='contained' color='success'>
-                            Create
-                        </Button>
-                    </Link>
-                </Toolbar>
-            </AppBar>
+        <Toolbar>
+            <Link to="/">
+            <div style={{ marginLeft: '8px' }}>
+            <Button variant='contained' color='inherit'>
+                Home
+            </Button>
+            </div>
+            </Link>
+            <Link to="/view">
+            <div style={{ marginLeft: '8px' }}>
+            <Button variant='contained' color='inherit'>
+                View
+            </Button>
+            </div>
+            </Link>
+            <Link to="/create">
+            <div style={{ marginLeft: '8px' }}>
+            <Button variant='contained' color='inherit'>
+                Create
+            </Button>
+            </div>
+            </Link>
+        </Toolbar>
+        </AppBar>
             <h2>Edit Item</h2>
             <form onSubmit={handleUpdate}>
-                <div>
+                <div style={{ marginBottom:'12px' }}>
                     <TextField
                         size="small"
                         label="Title"
@@ -79,7 +81,7 @@ const Edit = () => {
                         onChange={(e) => setTitle(e.target.value)}
                     />
                 </div>
-                <div>
+                <div style={{ marginBottom: '12px' }}>
                     <TextField
                         size="small"
                         label="description"
