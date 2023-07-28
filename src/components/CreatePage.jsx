@@ -1,64 +1,50 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import AppBar from '@mui/material/AppBar';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import Toolbar from '@mui/material/Toolbar';
 import Typography from "@mui/material/Typography";
-import BookDataService from "../services/BookDataService";
+import { useQueryClient, useMutation } from "@tanstack/react-query";
+import { createData } from "../services/api";
 
 const Create = () => {
     const navigate = useNavigate();
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-      const formData = new FormData(e.target);
-      const newBook = Object.fromEntries(formData.entries());
-      try {
-        await BookDataService.create(newBook);
+    const queryClient = useQueryClient();
+    const [formData, setFormData] = useState({});
+    const [buttonDisabled, setButtonDisabled] = useState(false);
+
+    const addNewBook = useMutation((newBook) => createData(newBook), {
+      onSuccess: () => {
+        queryClient.invalidateQueries(['books']);
         navigate('/view');
-      } catch (error) {
-        console.log('Error creating data:', error);
-      }
+      },
+      onError: (error, newItem, context) => {
+        queryClient.setQueryData('books', context);
+      },
+    })
+
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      addNewBook.mutate(formData);
+      setButtonDisabled(true);
     };
-  
+
+    const handleChange = (e) => {
+      setFormData({ ...formData, [e.target.name]: e.target.value});
+    };
+
     return (
       <div>
         <Typography>
-        <AppBar position='static'>
-        <Toolbar>
-          <Link to="/">
-            <div style={{ marginLeft: '8px' }}>
-            <Button variant='contained' color='inherit'>
-              Home
-            </Button>
-            </div>
-          </Link>
-          <Link to="/view">
-            <div style={{ marginLeft: '8px' }}>
-            <Button variant='contained' color='inherit'>
-              View
-            </Button>
-            </div>
-          </Link>
-          <Link to="/create">
-            <div style={{ marginLeft: '8px' }}>
-            <Button variant='contained' color='inherit'>
-              Create
-            </Button>
-            </div>
-          </Link>
-        </Toolbar>
-      </AppBar>
         <h2>Create Entry</h2>
         <form onSubmit={handleSubmit}>
           <div style={{ marginBottom: '12px' }}>
-            <TextField label="title" name="title" required />
+            <TextField label="title" name="title" value={formData.title} onChange={handleChange} required />
           </div>
           <div style={{ marginBottom: '12px' }}>
-            <TextField label="description" name="description" required />
+            <TextField label="description" name="description" value={formData.description} onChange={handleChange} required />
           </div>
           <div>
-            <Button type="submit">Create</Button>
+            <Button type="submit" disabled={buttonDisabled}>Create</Button>
           </div>
         </form>
         </Typography>

@@ -2,7 +2,6 @@ import React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useTable, usePagination } from 'react-table';
-import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -17,11 +16,9 @@ import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TextField from '@mui/material/TextField';
-import Toolbar  from '@mui/material/Toolbar';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import BookDataService from '../services/BookDataService';
 import Typography from '@mui/material/Typography';
-// import { useQuery } from '@tanstack/react-query';
 
 const View = () => {
   const qs = require('qs');
@@ -34,6 +31,7 @@ const View = () => {
   const [selectedRow, setSelectedRow] = useState(null);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
+  // not required while using react-query
   useEffect(() => {
     fetchData();
   }, [location.search]);
@@ -47,20 +45,6 @@ const View = () => {
       console.log('Error fetching data:', error);
     }
   };
-
-  {/**
-    const fetchData = async () => {
-      BookDataService.get(`${location.search}`);
-      setData(response.data);
-      setLoading(false);
-    } catch (error) {
-      console.log('Error fetching data:', {error.message});
-    }
-
-    const { data, isLoading } = useQuery(['books', searchQuery], () => 
-      BookDataService.get(`${location.search}`)
-    )
-  */}
 
   const handleOpenDeleteDialog = (row) => {
     setSelectedRow(row);
@@ -145,31 +129,6 @@ const View = () => {
   return (
     <div>
       <Typography mt={2}>
-      <AppBar position='static'>
-        <Toolbar>
-          <Link to="/">
-            <div style={{ marginLeft: '8px' }}>
-            <Button variant='contained' color='inherit'>
-              Home
-            </Button>
-            </div>
-          </Link>
-          <Link to="/view">
-            <div style={{ marginLeft: '8px' }}>
-            <Button variant='contained' color='inherit'>
-              View
-            </Button>
-            </div>
-          </Link>
-          <Link to="/create">
-            <div style={{ marginLeft: '8px' }}>
-            <Button variant='contained' color='inherit'>
-              Create
-            </Button>
-            </div>
-          </Link>
-        </Toolbar>
-      </AppBar>
       <div style={{ marginTop: '12px' }}>
       <form onSubmit={handleSearch}>
         <TextField
